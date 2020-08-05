@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { ArticleContext } from '../context/articleContext';
 
 const AddArticle = () => {
-  const { saveArticle } = useContext(ArticleContext);
+  const { dispatch } = useContext(ArticleContext);
 
   const [ article, setArticle ] = useState();
   
@@ -15,7 +15,9 @@ const AddArticle = () => {
 
   const addNewArticle = (e) => {
     e.preventDefault();
-    saveArticle(article);
+    dispatch({ type: "ADD_ARTICLE", article });
+    e.target.title.value = "";
+    e.target.body.value = "";
   };
   return (
     <form onSubmit={ addNewArticle }>

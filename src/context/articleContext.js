@@ -1,24 +1,16 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useReducer } from 'react';
 
+import { reducer } from './reducer';
 export const ArticleContext = createContext();
 
 const ArticleProvider = ({ children }) => {
-  const [ articles, setArticles ] = useState([
+  const [ articles, dispatch ] = useReducer( reducer, [
     { id: 1, title: "Post 1", body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
     { id: 2, title: "Post 2", body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." }
   ]);
 
-  const saveArticle = article => {
-    const newArticle = {
-      id: Math.random(),
-      title: article.title,
-      body: article.body,
-    };
-    setArticles([...articles, newArticle ])
-  };
-
   return (
-    <ArticleContext.Provider value={{ articles, saveArticle }}>
+    <ArticleContext.Provider value={{ articles, dispatch }}>
       {children}
     </ArticleContext.Provider>
   );
